@@ -1,0 +1,28 @@
+name: Unifei
+long_name: Projeto de Desagregação de Cargas Unifei
+creators:
+- Melo, Leonardo.
+- Fabricio.
+publication_date: 2020
+institution: Universidade Federal de Itajubá (MIT)
+contact: leonardomelo@unifei.edu.br # Zico moved from MIT to CMU
+description: Projeto para medição de aparelhos em uma localidade através de um medidor conectado pro wi-fi.
+subject: Desagregação de energia em residencias.
+number_of_buildings: 1
+timezone: BR/Sao Paulo   # MIT is on the east coast
+geo_location:
+  locality: Itajubá   # village, town, city or state
+  country: BR   # standard two-letter country code defined by ISO 3166-1 alpha-2
+  latitude:  -22.4269 # MIT's coorindates
+  longitude: -45.453
+related_documents:
+- Site do projeto <Inserir aqui>
+- Projeto do conversor baseado nos projetos abaixo
+- http://redd.csail.mit.edu
+- >
+  J. Zico Kolter and Matthew J. Johnson.
+  REDD: A public data set for energy disaggregation research.
+  In proceedings of the SustKDD workshop on
+  Data Mining Applications in Sustainability, 2011.
+  http://redd.csail.mit.edu/kolter-kddsust11.pdf
+schema: https://github.com/nilmtk/nilm_metadata/tree/v0.2

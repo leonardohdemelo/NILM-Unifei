@@ -1,0 +1,14 @@
+instance: 1   # this is the first building in the dataset
+original_name: house_1   # original name from REDD dataset
+elec_meters:
+  1: &redd_whole_house 
+    site_meter: true
+    device_model: REDD_whole_house
+
+#Provavelmente aqui os valores terão que ser mudados
+#Colocamos quais são os canais e a quais aplicações correspondem
+appliances:
+- original_name: medicao generica
+  type: electric oven
+  instance: 1
+  meters: [1]   # draws power from both 120 volt legs

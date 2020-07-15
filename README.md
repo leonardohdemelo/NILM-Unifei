@@ -16,3 +16,11 @@ unifeienergia.ml
 
 A visualização em tempo real da coleta de dados é mostrada na página:
 http://unifeienergia.ml:1880/ui/
+
+### Participantes
+
+<a href="https://github.com/Ceu152"><img src="https://avatars0.githubusercontent.com/u/43916660?s=460&v=4" alt="drawing" width="40" align="middle"/></a>
+Leonardo Henrique de Melo 
+
+<a href="https://github.com/FabricioAlves206"><img src="https://avatars3.githubusercontent.com/u/65301373?s=400&v=4" alt="drawing" width="40" align="middle"/></a>
+Fabrícios Alves

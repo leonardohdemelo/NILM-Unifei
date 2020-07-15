@@ -12,7 +12,7 @@ Mais informações podem ser encontradas no site https://ietecnologia.com/.
 A interface para a coleta de dados usada foi o NODE-RED. 
 
 O funcionamento do sistema e a documentação completa está no site:
-unifeienergia.ml
+http://unifeienergia.ml/
 
 A visualização em tempo real da coleta de dados é mostrada na página:
 http://unifeienergia.ml:1880/ui/

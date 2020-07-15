@@ -23,4 +23,4 @@ http://unifeienergia.ml:1880/ui/
 Leonardo Henrique de Melo 
 
 <a href="https://github.com/FabricioAlves206"><img src="https://avatars3.githubusercontent.com/u/65301373?s=400&v=4" alt="drawing" width="40" align="middle"/></a>
-Fabrícios Alves
+Fabrício Alves

@@ -10,6 +10,7 @@ from nilmtk import DataSet, TimeFrame, MeterGroup, HDFDataStore
 from nilmtk.legacy.disaggregate import CombinatorialOptimisation, FHMM
 import nilmtk.utils
 import time
+import math
 from datetime import datetime
 from threading import Thread
 import numpy.random
@@ -84,9 +85,29 @@ def predict(clf, test_elec, sample_period, timezone):
 
 entrada = open('./low_freq/house_1/channel_1.dat', 'r')
 lines = entrada.read().splitlines()
+dicionario = list()
+for line in lines:
+    time_stamp, potencia = line.split()
+    dicionario.append(time_stamp)
+    dicionario.append(potencia)
 
+def convert(lst): 
+    res_dct = {lst[i]: lst[i + 1] for i in range(0, len(lst), 2)} 
+    return res_dct
 
+dicionario = convert(dicionario)
 
+valor_referencia = open('./low_freq/house_1/channel_5.dat', 'r')
+valor_geladeira = valor_referencia.read().splitlines()
+dicionario_geladeira = list()
+for line in valor_geladeira:
+    time_stamp, potencia = line.split()
+    dicionario_geladeira.append(time_stamp)
+    dicionario_geladeira.append(potencia)
+
+dicionario_geladeira = convert(dicionario_geladeira)
+
+tempo = dicionario_geladeira.keys()
 
 # Since the methods use randomized initialization, let's fix a seed here
 # to make this notebook reproducible
@@ -100,14 +121,22 @@ gts = []
 fhmm = FHMM()
 fhmm.train(top_5_train_elec[0], sample_period=sample_period)
 
+aux = list()
+referencia = list()
+erro = list()
 
+def erro_quadratico(predicao, referencia):
+    erro = 0.0
+    for i in range(len(predicao)):
+        erro += (predicao[i] - referencia[i])**2
+    return math.sqrt(erro/len(predicao))
 
-def processa_dados(modelo, line):
+def processa_dados(modelo, line, referencia):
+    global erro 
 
     lista_pot = list()
     lista_index = list()
-    print(len(line))
-    for i in range(0,len(line),30):
+    for i in range(0,len(line)):
         time_stamp, potencia = line[i].split()
         time_stamp = int(time_stamp)
         lista_pot.append(float(potencia))
@@ -120,16 +149,16 @@ def processa_dados(modelo, line):
     predicao = modelo.disaggregate_chunk(df)
     predicao.columns = ['Fridge', 'Light', 'Sockets', 'Microwave', 'Dish washer']
     list_geladeira = predicao['Fridge'].tolist()
-    list_luzes = predicao['Light'].tolist()
+    """list_luzes = predicao['Light'].tolist()
     list_tomadas = predicao['Sockets'].tolist()
     list_microondas = predicao['Microwave'].tolist()
-    list_lavadora = predicao['Dish washer'].tolist()
+    list_lavadora = predicao['Dish washer'].tolist()"""
 
     for i in range(len(list_geladeira)):
         arquivo = open('geladeira.txt', 'w')
         arquivo.write(str(list_geladeira[i])+'\n')
         arquivo.close()
-        arquivo = open('luzes.txt', 'w')
+        """arquivo = open('luzes.txt', 'w')
         arquivo.write(str(list_luzes[i])+'\n')
         arquivo.close()
         arquivo = open('tomadas.txt', 'w')
@@ -140,16 +169,42 @@ def processa_dados(modelo, line):
         arquivo.close()
         arquivo = open('lavadora.txt', 'w')
         arquivo.write(str(list_lavadora[i])+'\n')
-        arquivo.close()
-        time.sleep(i)
+        arquivo.close()"""
+        #time.sleep(i)
+    
+    erro.append(erro_quadratico(list_geladeira, referencia))
                    
 print("[OK] Processo de desagregacao iniciado...")                    
 
+sample_variation = [1]
+# Variar as amostras em cima do sistema e gerar graficos do valor dessas amostras 
 
-for i in range(1539927, len(lines),60*30):
-    aux = list()
-    for j in range(0, 1800):
-        aux.append(lines[i+j])
-    thread_processamento = Thread(target=processa_dados,args=(fhmm, aux,))
-    thread_processamento.start()
-    time.sleep(60) #Espera 30 segundos
+
+
+for sample in sample_variation:
+
+    samples = sample
+    k = 0;
+    erro = list()
+    for amostra in tempo:
+        try:
+            aux.append(amostra + " " + dicionario[amostra])
+            referencia.append(float(dicionario_geladeira[amostra]))
+            samples -= 1
+            if not samples:
+                thread_processamento = Thread(target=processa_dados,args=(fhmm, aux, referencia))
+                thread_processamento.start()
+                aux = list()
+                referencia = list()
+                samples = sample
+                k +=1; 
+                if k == 1000:
+                    break
+                #time.sleep(5) #Espera 30 segundos
+        except:
+            print("Um inconsistencia de dado foi encontrada...")
+    x = 0 
+    lista = [x in range(len(erro)) ]
+    plt.plot(x, erro)
+    plt.show()
+    

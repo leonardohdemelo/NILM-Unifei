@@ -176,7 +176,7 @@ def processa_dados(modelo, line, referencia):
                    
 print("[OK] Processo de desagregacao iniciado...")                    
 
-sample_variation = [1]
+sample_variation = [1000]
 # Variar as amostras em cima do sistema e gerar graficos do valor dessas amostras 
 
 
@@ -205,6 +205,6 @@ for sample in sample_variation:
             print("Um inconsistencia de dado foi encontrada...")
     x = 0 
     lista = [x in range(len(erro)) ]
-    plt.plot(x, erro)
+    plt.plot(erro)
     plt.show()
     

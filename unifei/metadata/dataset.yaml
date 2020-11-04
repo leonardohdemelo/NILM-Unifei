@@ -2,22 +2,22 @@ name: Unifei
 long_name: Projeto de Desagregação de Cargas Unifei
 creators:
 - Melo, Leonardo.
-- Fabricio.
+- Alves, Fabricio.
 publication_date: 2020
-institution: Universidade Federal de Itajubá (MIT)
-contact: leonardomelo@unifei.edu.br # Zico moved from MIT to CMU
+institution: Universidade Federal de Itajubá (Unifei)
+contact: leonardomelo@unifei.edu.br
 description: Projeto para medição de aparelhos em uma localidade através de um medidor conectado pro wi-fi.
 subject: Desagregação de energia em residencias.
-number_of_buildings: 1
+number_of_buildings: 
 timezone: BR/Sao Paulo   # MIT is on the east coast
 geo_location:
   locality: Itajubá   # village, town, city or state
-  country: BR   # standard two-letter country code defined by ISO 3166-1 alpha-2
-  latitude:  -22.4269 # MIT's coorindates
+  country: BR  
+  latitude:  -22.4269 # Itajubá Coordinates
   longitude: -45.453
 related_documents:
-- Site do projeto <Inserir aqui>
-- Projeto do conversor baseado nos projetos abaixo
+- Site do projeto: unifeienergia.ml
+- Projeto do conversor baseado nos projetos abaixo:
 - http://redd.csail.mit.edu
 - >
   J. Zico Kolter and Matthew J. Johnson.

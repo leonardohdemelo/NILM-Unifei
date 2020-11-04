@@ -1,0 +1,25 @@
+#Modelo casa 2 
+#Geral
+instance: 2
+original_name: house_2
+elec_meters:
+  1: &sm_3W
+    site_meter: true
+    device_model: SM_3W
+  2: &sm_w_lite
+     submeter_of: 0
+     device_model: SM_W_Lite
+  3: *sm_w_lite
+
+#Aparelhos
+appliances:
+- original_name: Geladeira Casa 2
+  type: fridge
+  instance: 1
+  meters: [2] 
+
+- original_name: Maquina Casa 2
+  type: washing machine
+  instance: 1
+  meters: [3]
+  

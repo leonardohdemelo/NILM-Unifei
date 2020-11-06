@@ -1,0 +1,27 @@
+#Definição do modelo das casas utilizadas
+#Modelo casa 1 
+#Geral
+instance: 1   
+original_name: house_1  
+elec_meters:
+  1: &sm_w_lite_main
+    site_meter: true
+    device_model: SM_W_Lite
+  2: &sm_w_lite
+    submeter_of: 0
+    device_model: SM_W_Lite
+  3: *sm_w_lite
+
+#Aparelhos
+appliances:
+- original_name: Geladeira Casa 1
+  type: fridge
+  instance: 1
+  meters: [2] 
+
+- original_name: Cafeteira Casa 1
+  type: coffee maker
+  instance: 1
+  meters: [3]
+
+ 

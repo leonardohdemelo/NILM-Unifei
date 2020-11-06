@@ -1,0 +1,38 @@
+SM_W_Lite:
+  model: SM_W_Lite
+  manufacturer: IETECNOLOGIA
+  manufacturer_url: https://ietecnologia.com/
+  description: >
+    Medidor de energia monofásico wifi modelo SM-W Lite;
+    Tenha em mãos os gastos de sua casa em tempo real, 24 horas por dia;
+    Apresenta em tempo real os gráficos de corrente [A], Consumo [kWh] e Consumo [R$];
+    Equipamento Nacional;
+    Mostra em tempo real o quanto sua casa está consumindo em reais
+  sample_period: 5  
+  max_sample_period: 50 
+  measurements:
+  - physical_quantity: power
+    type: active  
+    upper_limit: 5000
+    lower_limit: 0
+  wireless: true
+
+SM_3W:
+  model: SM_3W
+  manufacturer: IETECNOLOGIA
+  manufacturer_url: https://ietecnologia.com/
+  description: >
+    Medidor de energia trifásico wifi modelo SM-3W;
+    Tenha em mãos os gastos de sua empresa em tempo real, 24 horas por dia;
+    Apresenta em tempo real os gráficos de Consumo [kWh],
+    Consumo [R$], Demanda e Fator de Potência.
+    Equipamento Nacional;
+    Mostra em tempo real o quanto sua empresa está consumindo em reais;
+  sample_period: 5  
+  max_sample_period: 50 
+  measurements:
+  - physical_quantity: power 
+    type: active   
+    upper_limit: 5000
+    lower_limit: 0
+  wireless: true

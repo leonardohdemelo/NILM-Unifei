@@ -133,7 +133,7 @@ def erro_quadratico(predicao, referencia):
 
 def processa_dados(modelo, line, referencia):
     global erro 
-
+    start = datetime.now()
     lista_pot = list()
     lista_index = list()
     for i in range(0,len(line)):
@@ -170,13 +170,16 @@ def processa_dados(modelo, line, referencia):
         arquivo = open('lavadora.txt', 'w')
         arquivo.write(str(list_lavadora[i])+'\n')
         arquivo.close()"""
-        #time.sleep(i)
     
     erro.append(erro_quadratico(list_geladeira, referencia))
-                   
+    end = datetime.now()
+    elapsed = end - start
+    #print(elapsed.seconds,":",elapsed.microseconds) 
+    
+
 print("[OK] Processo de desagregacao iniciado...")                    
 
-sample_variation = [1000]
+sample_variation = [1, 10, 100, 1000]
 # Variar as amostras em cima do sistema e gerar graficos do valor dessas amostras 
 
 
@@ -200,10 +203,21 @@ for sample in sample_variation:
                 k +=1; 
                 if k == 1000:
                     break
-                #time.sleep(5) #Espera 30 segundos
-        except:
-            print("Um inconsistencia de dado foi encontrada...")
-    x = 0 
+                #time.sleep(30) #Espera 30 segundos
+        except Exception as e :
+            print("Uma inconsistencia de dado foi encontrada...")
+
+    x = 0
+    total = 0
+
+    for e in erro:
+        total += e
+        x += 1
+
+    total = total/x
+    print("Media do erro quadratico: ", total)
+
+    x=0
     lista = [x in range(len(erro)) ]
     plt.plot(erro)
     plt.show()

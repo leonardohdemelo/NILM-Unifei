@@ -1,0 +1,22 @@
+#converter o arquivo txt para dado dataframe
+
+from datetime import datetime
+import pandas as pd
+import numpy as np 
+
+arquivo = open('./low_freq/house_1/channel_1.dat', 'r')
+
+
+time_stamp, potencia = arquivo.readline().split()
+
+time_stamp = int(time_stamp)
+dt_object = datetime.fromtimestamp(time_stamp)
+
+print(type(dt_object))
+      
+df = pd.DataFrame({'power apparent':[float(potencia), 1.0,1.3,4.0]},
+                   index = [dt_object , 'teste1', 'teste2', 'teste3'])
+print(df)
+print(df.shape)
+arquivo.close()
+ 

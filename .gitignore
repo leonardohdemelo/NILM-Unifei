@@ -1,1 +1,5 @@
 *.hd5
+*.h5
+*.tmp
+/low_freq/
+*.datc

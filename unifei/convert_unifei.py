@@ -33,17 +33,17 @@ def convert_unifei(redd_path, output_filename, format='HDF'):
     """
 
     def _redd_measurement_mapping_func(house_id, chan_id):
-        ac_type = 'apparent' if chan_id <= 2 else 'active'
+        ac_type = 'active'
         return [('power', ac_type)]
         
     # Open DataStore
     store = get_datastore(output_filename, format, mode='w')
-    print(store)
     # Convert raw data to DataStore
-    _convert(redd_path, store, _redd_measurement_mapping_func, 'US/Eastern')
+    _convert(redd_path, store, _redd_measurement_mapping_func, 'America/Sao_Paulo')
     print("Done convert...")
     
     #Aqui é necessário colocar o endereço de onde fica a metadata
+    print(get_module_directory())
     s=join(get_module_directory(),
                               'dataset_converters',
                               'unifei',
@@ -203,7 +203,6 @@ def _load_csv(filename, columns, tz, drop_duplicates=False, sort_index=False):
     # Load data
     df = pd.read_csv(filename, sep=' ', names=columns,
                      dtype={m:np.float32 for m in columns})
-    
     # Modify the column labels to reflect the power measurements recorded.
     df.columns.set_names(LEVEL_NAMES, inplace=True)
 

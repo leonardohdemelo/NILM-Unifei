@@ -1,14 +1,27 @@
-instance: 1   # this is the first building in the dataset
-original_name: house_1   # original name from REDD dataset
+#Definição do modelo das casas utilizadas
+#Modelo casa 1 
+#Geral
+instance: 1   
+original_name: house_1  
 elec_meters:
-  1: &redd_whole_house 
+  1: &sm_w_lite_main
     site_meter: true
-    device_model: REDD_whole_house
+    device_model: SM_W_Lite
+  2: &sm_w_lite
+    submeter_of: 0
+    device_model: SM_W_Lite
+  3: *sm_w_lite
 
-#Provavelmente aqui os valores terão que ser mudados
-#Colocamos quais são os canais e a quais aplicações correspondem
+#Aparelhos
 appliances:
-- original_name: medicao generica
-  type: electric oven
+- original_name: Geladeira Casa 1
+  type: fridge
   instance: 1
-  meters: [1]   # draws power from both 120 volt legs
+  meters: [2] 
+
+- original_name: Cafeteira Casa 1
+  type: coffee maker
+  instance: 1
+  meters: [3]
+
+ 

@@ -1,0 +1,24 @@
+#Modelo casa 3 
+#Geral
+instance: 3 
+original_name: house_3
+elec_meters:
+  1: &sm_w_lite
+    site_meter: true
+    device_model: SM_W_Lite
+  2: *sm_w_lite
+  3: *sm_w_lite
+
+
+#Aparelhos
+appliances:
+- original_name: Geladeira Casa 3
+  type: fridge
+  instance: 1
+  meters: [2] 
+
+- original_name: Chuveiro Casa 3
+  type: electric shower heater
+  instance: 1 
+  meters: [3]
+ 

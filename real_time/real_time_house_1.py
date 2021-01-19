@@ -19,9 +19,9 @@ import numpy.random
 import requests
 
 BUFFER_SIZE = 500
-HOUSE = 3 
+HOUSE = 1 
 SERVER_IP = '172.31.63.90'
-PORT = 7002
+PORT = 7000
 
 def erro_quadratico(predicao, referencia):
     erro = 0.0
@@ -45,30 +45,30 @@ def processa_dados(modelo, line):
     df = pd.DataFrame({'power apparent':lista_pot},
                    index = lista_index)
     predicao = modelo.disaggregate_chunk(df)
-    predicao.columns = ['Geladeira', 'Chuveiro']
+    predicao.columns = ['Geladeira', 'Cafeteira']
     list_geladeira = predicao['Geladeira'].tolist()
-    list_chuveiro = predicao['Chuveiro'].tolist()
-
+    list_cafeteira = predicao['Cafeteira'].tolist()
 
     pload1 = str(list_geladeira[len(list_geladeira)- 1])
-    try:
-        requests.post('http://unifeienergia.ml:1880/api/casa3/geladeira', data=pload1, timeout=0.0000000001)
-    except requests.exceptions.ReadTimeout: 
-        pass
-    pload2 = str(list_chuveiro[len(list_chuveiro) - 1])
 
     try:
-         requests.post('http://unifeienergia.ml:1880/api/casa3/chuveiro', data=pload2)
+        requests.post('http://unifeienergia.ml:1880/api/casa2/geladeira', data=pload1, timeout=0.0000001)
     except requests.exceptions.ReadTimeout: 
         pass
-   
 
-    arquivo = open('geladeira_casa_3.txt', 'a')
+    pload2 = str(list_cafeteira[len(list_cafeteira) - 1])
+    
+    try:
+        requests.post('http://unifeienergia.ml:1880/api/casa2/cafeteira', data=pload2, timeout=0.0000001)
+    except requests.exceptions.ReadTimeout: 
+        pass
+
+    arquivo = open('geladeira_casa_1.txt', 'w')
     arquivo.write(str(list_geladeira[len(list_geladeira)-1])+'\n')
     arquivo.close()
     
-    arquivo = open('chuveiro_casa_3.txt', 'a')
-    arquivo.write(str(list_chuveiro[len(list_chuveiro)-1])+'\n')
+    arquivo = open('cafeteira_casa_1.txt', 'w')
+    arquivo.write(str(list_cafeteira[len(list_cafeteira)-1])+'\n')
     arquivo.close()
 
     end = datetime.now()
@@ -140,7 +140,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             buffer.pop(0)
         buffer.append(str(int(actual_time)) + ' ' + body.decode('utf-8'))
 
-
+        print(buffer)
         thread_processamento = Thread(target=processa_dados,args=(fhmm, buffer))
         thread_processamento.start()
 
@@ -151,7 +151,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
 print("[OK] Carregando base de dados da casa: " + str(HOUSE))
 buffer = []
-train = DataSet('banco_unifei_casa_3.h5')
+train = DataSet('banco_unifei.h5')
 #Enumera todas as casas
 buildings = [ i for i in range(3)]
 #Vetor que guarda os dados de todas as casas

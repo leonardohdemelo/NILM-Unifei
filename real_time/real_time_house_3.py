@@ -62,13 +62,16 @@ def processa_dados(modelo, line):
     except requests.exceptions.ReadTimeout: 
         pass
    
+    arquivo = open('geral_casa_3.txt', 'a') 
+    arquivo.write(f'{str(start)} {str(line[-1].split()[1])}\n')
+    arquivo.close()
 
     arquivo = open('geladeira_casa_3.txt', 'a')
-    arquivo.write(str(list_geladeira[len(list_geladeira)-1])+'\n')
+    arquivo.write(f'{str(start)} {str(list_geladeira[len(list_geladeira)-1])}\n')
     arquivo.close()
     
     arquivo = open('chuveiro_casa_3.txt', 'a')
-    arquivo.write(str(list_chuveiro[len(list_chuveiro)-1])+'\n')
+    arquivo.write(f'{str(start)} {str(list_chuveiro[len(list_chuveiro)-1])}\n')
     arquivo.close()
 
     end = datetime.now()

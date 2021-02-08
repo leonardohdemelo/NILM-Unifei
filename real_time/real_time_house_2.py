@@ -19,7 +19,7 @@ import numpy.random
 import requests
 
 BUFFER_SIZE = 500
-HOUSE = 1 
+HOUSE = 2 
 SERVER_IP = '172.31.63.90'
 PORT = 7001
 
